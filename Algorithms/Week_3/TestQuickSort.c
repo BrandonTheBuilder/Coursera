@@ -26,7 +26,7 @@ void run_test_cases()
 
 int main()
 {
-	// run_tests();
+	run_tests();
     run_test_cases();
 	return 0;
 }

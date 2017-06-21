@@ -175,9 +175,18 @@ void test_place_pivot()
     printf("test_place_pivot\n");
     int n = 5;
     int a[5] = {4,3,5,1,2};
+    int b[5] = { 3, 2, 1, 4, 5 };
     place_pivot(a, n, 1);
     print_assertion(a[0] == 2);
     print_assertion(a[n-1] == 4);
+    int c[5] = {1,2,5,4,3};
+    place_pivot(c, 5, 2);
+    int d[4] = {4,5,6,7};
+    place_pivot(d, 4, 2);
+    place_pivot(b, 5, 2);
+    print_assertion(c[0] == 3);
+    print_assertion(d[0] == 5);
+    print_assertion(b[0] == 3);
 }
 
 void test_count()

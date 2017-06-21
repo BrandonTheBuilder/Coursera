@@ -78,5 +78,38 @@ void use_last_value_as_pivot(int *a, int n)
 
 void use_median_value_as_pivot(int *a, int n)
 {
-    
+    int i = 0;
+    if(n%2)
+    {
+        i = n/2;
+    }
+    else
+    {
+        i = (n/2)-1;
+    }
+    if (a[0] > a[i] && a[0] > a[n-1])
+    {
+        if (a[i] > a[n-1])
+        {
+            swap(a, 0, i);
+        }
+        else
+        {
+            swap(a, 0, n-1);
+        }
+    }
+    else if (a[i] > a[0] && a[i] > a[n-1])
+    {
+        if (a[n-1] > a[0])
+        {
+            swap(a, 0, n-1);
+        }
+    }
+    else if (a[n-1] > a[i] && a[n-1] > a[0])
+    {
+        if (a[i] > a[0])
+        {
+            swap(a, 0, i);
+        }
+    }
 }

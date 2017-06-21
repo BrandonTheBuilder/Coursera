@@ -32,9 +32,6 @@ void place_pivot(int *a, int n, int count_method)
 
 void quick_sort(int* a, int n, int* call_count, int count_method)
 {
-    // printf("QuickSort Called With array of length %i\n", n);
-	// printf("Got\n");
-    // print_array_oflength(a, n);
     if (n == 0)
 	{
 		return;
@@ -46,8 +43,6 @@ void quick_sort(int* a, int n, int* call_count, int count_method)
     call_count[count_method] += n-1;
     place_pivot(a, n, count_method);
 	int i = partition(a, 0, n);
-    // printf("partitioned\n");
-    // print_array_oflength(a, n);
 	quick_sort(a, i-1, call_count, count_method);
 	quick_sort(a + i, n - i, call_count, count_method);
 }

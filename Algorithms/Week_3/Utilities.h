@@ -70,3 +70,13 @@ void print_array_oflength(int *a, int n)
 {
 	print_array(a, 0, n);
 }
+
+void use_last_value_as_pivot(int *a, int n)
+{
+    swap(a, 0, n-1);
+}
+
+void use_median_value_as_pivot(int *a, int n)
+{
+    
+}

@@ -11,6 +11,7 @@ void run_tests()
 	test_load_array();
 	test_long_input();
     test_count();
+    test_place_pivot();
 }
 
 void run_test_cases()
@@ -25,6 +26,7 @@ void run_test_cases()
 
 int main()
 {
-	run_test_cases();
+	// run_tests();
+    run_test_cases();
 	return 0;
 }

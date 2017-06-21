@@ -1,69 +1,39 @@
 #define TestQuickSort
 #include "QuickSort.h"
 
-void load_array_from_file(char* file_location, int* a)
-{
-	FILE* file = fopen (file_location, "r");
-	int i = 0;
-	while (!feof (file))
-	{  
-	  fscanf (file, "%d", &a[i]);
-	  i++;      
-	}
-	fclose (file);  
-}
-
-void print_assertion(int assertion)
-{
-	if (assertion)
-	{
-		printf("Passed!\n");
-	}
-	else
-	{
-		printf("failed :(\n");
-	}
-}
-
-int arrays_equal(int* a, int* b)
-{
-	int na = sizeof(a);
-	int nb = sizeof(b);
-	if (na != nb)
-	{
-		return 0;
-	}
-	else
-	{
-		for (int i = 0; i < na; ++i)
-		{
-			if (a[i] != b[i])
-			{
-				return 0;
-			}
-		}
-		return 1;
-	}
-}
-
 void test_load_array()
 {
 	printf("test_load_array\n");
 	int a[8];
 	int b[8] = {1,2,12,3,5,7,123,56};
-	load_array_from_file("test_input.txt", a);
+	load_array_from_file("test_input.txt", a, 8);
 	print_assertion(arrays_equal(a,b));
+	printf("large_input\n");
+	int B[100];
+	load_array_from_file("test_long_input.txt", B, 100);
+	print_assertion(B[0]==79);
+	print_assertion(B[99]==78);
 
 }
 
 void test_swap()
 {
+	printf("test_swap\n");
 	int A[5] = {1,2,3,4,5};
 	int a = A[2];
 	int b = A[3];
 	swap(A,2,3);
 	print_assertion(A[3] == a);
 	print_assertion(A[2] == b);
+	printf("large_input\n");
+	int B[100];
+	load_array_from_file("quicksort_input.txt", B, 100);
+	a = B[7];
+	b = B[43];
+	swap(B, 7, 43);
+	print_assertion(B[43] == a);
+	print_assertion(B[7] == b);
+
 }
 
 void test_partition()
@@ -73,6 +43,26 @@ void test_partition()
 	int b[8] = {1, 2, 3, 5, 8, 4, 7, 6};
 	int i = partition(a,0,8);
 	print_assertion(arrays_equal(a,b));
+	printf("long_input\n");
+	int B[100];
+	load_array_from_file("test_long_input.txt", B, 100);
+	int c = B[0];
+	int d = partition(B,0,100);
+	for (int j = 0; j < d; ++j)
+	{
+		if (B[j] > c)
+		{
+			printf("Not partitioned!!\n");
+		}
+	}
+	for (int k = d+1; k < 100; ++k)
+	{
+		if (B[k] < c)
+		{
+			printf("Not partitioned!!\n");
+		}
+	}
+	print_assertion(1);
 
 }
 
@@ -99,8 +89,77 @@ void test_quick_sort()
 	printf("test_quick_sort\n");
 	int a[5] = {4,3,5,1,2};
 	int b[5] = {1,2,3,4,5};
-	quick_sort(a, 5);
+    int count[1] = {0};
+	quick_sort(a, 5, count);
 	print_assertion(arrays_equal(a,b));
+}
+
+void test_long_input()
+{
+	printf("test_long_input\n");
+	int a[100];
+	load_array_from_file("test_long_input.txt", a, 100);
+	int count[1] = {0};
+    quick_sort(a, 100, count);
+	for (int i = 0; i < 100; ++i)
+	{
+		if (a[i] != i)
+		{
+			printf("Not Sorted correctly %i!", a[i]);
+
+		}
+	}
+	print_assertion(1);
+}
+
+void _test_partition_slice(int* a, int p, int n, int first_half)
+{
+	if (first_half)
+	{
+		printf("In the first half with p = %i and an n of %i\n", p, n);
+	}
+	else
+	{
+		printf("In the second half with p = %i and an n of %i\n", p, n);
+	}
+	for (int i = 0; i < n; ++i)
+	{	
+		if (a[i] > p)
+		{
+			if (first_half)
+			{
+				printf("a[%i]\n", a[i]);
+				print_assertion(0);
+			}	
+		}
+		else if (a[i] == p)
+		{
+			printf("a[%i]\n", a[i]);
+			print_assertion(0);
+		}
+		else 
+		{
+			if(!(first_half))
+			{
+				printf("a[%i]\n", a[i]);
+				print_assertion(0);
+			}
+		}
+		
+	}
+}
+
+void test_partition_slice()
+{
+	int B[99];
+	load_array_from_file("test_long_input.txt", B, 99);
+	int c = B[0];
+	int d = partition(B,0,99);
+	print_assertion(c == B[d-1]);
+	// print_array_oflength(B, d-1);
+	_test_partition_slice(B, c, d-1, 1);
+	_test_partition_slice(B + d, c, 99-d, 0);
+
 }
 
 void test_slice_array()
@@ -109,4 +168,104 @@ void test_slice_array()
 	int a[4] = {1,2,3,4};
 	test_slice(a+1,2);
 
+}
+
+void test_count()
+{
+    int a[10];
+    int count[1] = {0};
+    load_array_from_file("quicksort_input.txt", a, 10);
+    quick_sort(a, 10, count);
+    printf("Got a count of %i\n", count[0]);
+    print_assertion(count[0] == 25);
+}
+
+void test_case_one()
+{
+    printf("\n Case One \n");
+    int n = 5;
+    int a[n];
+    load_array_from_file("testCases/input_dgrcode_01_5.txt", a, n);
+    int count[3] = {0,0,0};
+    quick_sort(a, n, count);
+    int expected[3];
+    load_array_from_file("testCases/output_dgrcode_01_5.txt", expected, 3);
+    print_assertion(count[0] == expected[0]);
+    print_assertion(count[1] == expected[1]);
+    print_assertion(count[2] == expected[2]);
+}
+
+void test_case_two()
+{
+    printf("\n Case two \n");
+    int n = 5;
+    int a[n];
+    load_array_from_file("testCases/input_dgrcode_02_5.txt", a, n);
+    int count[3] = {0,0,0};
+    quick_sort(a, n, count);
+    int expected[3];
+    load_array_from_file("testCases/output_dgrcode_02_5.txt", expected, 3);
+    print_assertion(count[0] == expected[0]);
+    print_assertion(count[1] == expected[1]);
+    print_assertion(count[2] == expected[2]);
+}
+
+void test_case_three()
+{
+    printf("\n Case three \n");
+    int n = 5;
+    int a[n];
+    load_array_from_file("testCases/input_dgrcode_03_5.txt", a, n);
+    int count[3] = {0,0,0};
+    quick_sort(a, n, count);
+    int expected[3];
+    load_array_from_file("testCases/output_dgrcode_03_5.txt", expected, 3);
+    print_assertion(count[0] == expected[0]);
+    print_assertion(count[1] == expected[1]);
+    print_assertion(count[2] == expected[2]);
+}
+
+void test_case_four()
+{
+    printf("\n Case four \n");
+    int n = 5;
+    int a[n];
+    load_array_from_file("testCases/input_dgrcode_04_5.txt", a, n);
+    int count[3] = {0,0,0};
+    quick_sort(a, n, count);
+    int expected[3];
+    load_array_from_file("testCases/output_dgrcode_04_5.txt", expected, 3);
+    print_assertion(count[0] == expected[0]);
+    print_assertion(count[1] == expected[1]);
+    print_assertion(count[2] == expected[2]);
+}
+
+void test_case_five()
+{
+    printf("\n Case five \n");
+    int n = 5;
+    int a[n];
+    load_array_from_file("testCases/input_dgrcode_05_5.txt", a, n);
+    int count[3] = {0,0,0};
+    quick_sort(a, n, count);
+    int expected[3];
+    load_array_from_file("testCases/output_dgrcode_05_5.txt", expected, 3);
+    print_assertion(count[0] == expected[0]);
+    print_assertion(count[1] == expected[1]);
+    print_assertion(count[2] == expected[2]);
+}
+
+void test_case_six()
+{
+    printf("\n Case six \n");
+    int n = 10;
+    int a[n];
+    load_array_from_file("testCases/input_dgrcode_06_10.txt", a, n);
+    int count[3] = {0,0,0};
+    quick_sort(a, n, count);
+    int expected[3];
+    load_array_from_file("testCases/output_dgrcode_06_10.txt", expected, 3);
+    print_assertion(count[0] == expected[0]);
+    print_assertion(count[1] == expected[1]);
+    print_assertion(count[2] == expected[2]);
 }

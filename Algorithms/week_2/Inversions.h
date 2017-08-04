@@ -5,7 +5,7 @@
 int log_level = 0;
 int merge_log_level = 0;
 
-int count_split_inversions(int *b, int *c, int *d, int n)
+long count_split_inversions(int *b, int *c, int *d, int n)
 {
     int len_b = n/2 + n%2;
     int len_c = n-len_b;
@@ -26,7 +26,7 @@ int count_split_inversions(int *b, int *c, int *d, int n)
         printf("d before\n");
         print_array_oflength(d, n);
     }
-    int invs = 0;
+    long invs = 0;
     for (int k = 0; k < n; ++k)
     {
         
@@ -98,7 +98,7 @@ int count_split_inversions(int *b, int *c, int *d, int n)
     return invs;
 }
 
-int count_inversions(int* a, int n)
+long count_inversions(int* a, int n)
 {
     if( n == 1) 
     {
@@ -126,19 +126,19 @@ int count_inversions(int* a, int n)
     }
     int d[n];
     memset(d, 0, n*sizeof(int));
-    int x = count_inversions(b, m);
+    long x = count_inversions(b, m);
     if(n == log_level)
     {
         printf("b after\n");
         print_array_oflength(b, m);
     }
-    int y = count_inversions(c, n-m);
+    long y = count_inversions(c, n-m);
     if(n == log_level)
     {
         printf("c after\n");
         print_array_oflength(c, n-m);
     }
-    int z = count_split_inversions(b, c, d, n);
+    long z = count_split_inversions(b, c, d, n);
     memcpy(a, d, n*sizeof(int));
 if(n == log_level)
 {

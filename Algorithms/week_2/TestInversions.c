@@ -16,6 +16,8 @@ void test_count_inversions()
     int ans = 3;
     int invs = count_inversions(a, 6);
     print_invs_assertion(ans, invs);
+    int invsFromCount = getInvCount(a);
+    print_invs_assertion(invsFromCount, ans);
     int b[10] = {5, 2, 10, 8, 1, 9, 4, 3, 6, 7};
     int bans = 22;
     int binvs = count_inversions(b, 10);

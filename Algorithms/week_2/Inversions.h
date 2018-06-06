@@ -1,6 +1,7 @@
 #define Inversions
 #include "Utilities.h"
 #include <string.h>
+#include <stdio.h>
 
 int log_level = 0;
 int merge_log_level = 0;
@@ -96,6 +97,17 @@ long count_split_inversions(int *b, int *c, int *d, int n)
         print_array_oflength(d, n);
     }
     return invs;
+}
+
+int getInvCount(int arr[], int n)
+{
+  int inv_count = 0;
+  for (int i = 0; i < n - 1; i++)
+    for (int j = i+1; j < n; j++)
+      if (arr[i] > arr[j])
+        inv_count++;
+ 
+  return inv_count;
 }
 
 long count_inversions(int* a, int n)

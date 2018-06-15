@@ -4,4 +4,12 @@
 TEST(Graph, create) {
     Graph graph = Graph("shortTest.txt");
     ASSERT_EQ(1, graph[0][0]);    
+    for (int i = 0; i < graph.size(); i++){
+        ASSERT_GE(graph[i].size(), 1);
+    }
+}
+
+TEST(Graph, min_cut) {
+    Graph graph = Graph("shortTest.txt");
+    ASSERT_EQ(3, graph.getMinCut(100));   
 }

@@ -13,3 +13,14 @@ TEST(Graph, min_cut) {
     Graph graph = Graph("shortTest.txt");
     ASSERT_EQ(3, graph.getMinCut(100));   
 }
+
+TEST(Graph, largeInput) {
+    Graph graph = Graph("kargerMinCut.txt");
+    int ans = graph.getMinCut(100);
+    std::cout << "The answer is " << ans << "!!\n";
+}
+
+TEST(minCut, one) {
+    Graph graph = Graph("test_case_one.txt");
+    ASSERT_EQ(2, graph.getMinCut(10));
+}

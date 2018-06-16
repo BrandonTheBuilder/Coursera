@@ -1,26 +1,37 @@
 #include "graph.h"
 #include <gtest/gtest.h>
 
-TEST(Graph, create) {
-    Graph graph = Graph("shortTest.txt");
+TEST(getMinCut, create) {
+    std::vector<std::vector<int>> vec = getGraph("shortTest.txt");
+    Graph graph = Graph(vec);
     ASSERT_EQ(1, graph[0][0]);    
     for (int i = 0; i < graph.size(); i++){
         ASSERT_GE(graph[i].size(), 1);
     }
 }
 
-TEST(Graph, min_cut) {
-    Graph graph = Graph("shortTest.txt");
-    ASSERT_EQ(3, graph.getMinCut(100));   
+TEST(simple, simpleGraph) {
+    int res = getMinCut("simpleGraph.txt");
+    ASSERT_EQ(2, res);
 }
 
-TEST(Graph, largeInput) {
-    Graph graph = Graph("kargerMinCut.txt");
-    int ans = graph.getMinCut(100);
-    std::cout << "The answer is " << ans << "!!\n";
+TEST(getMinCut, min_cut) {
+    int res = getMinCut("shortTest.txt");
+    ASSERT_EQ(3, res);   
+}
+
+TEST(getMinCut, largeInput) {
+    //int res = getMinCut(0, "kargerMinCut.txt");
+    //std::cout << "The answer is " << res << "!!\n";
 }
 
 TEST(minCut, one) {
-    Graph graph = Graph("test_case_one.txt");
-    ASSERT_EQ(2, graph.getMinCut(10));
+    int res = getMinCut("test_case_one.txt");
+    ASSERT_EQ(2, res);
+}
+
+int main(int argc, char **argv) {
+  ::testing::InitGoogleTest(&argc, argv);
+  srand( time(NULL));
+  return RUN_ALL_TESTS();
 }

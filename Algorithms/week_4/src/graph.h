@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <time.h>
 #include <vector>
 #include <string>
 #include <iostream>
@@ -8,13 +9,19 @@
 #include <random>
 #include <map>
 
+int getMinCut(const std::string& fileName);
+std::vector<std::vector<int>> getGraph(const std::string& fileName);
+
 class Graph {
 public:
-    Graph(const std::string& fileName);
-    int getMinCut(int trials);
+    Graph(std::vector<std::vector<int>> graph);
+    int getMinCut();
     int size() {return _graph.size();}
     std::vector<int> operator[](int i){return _graph[i];}
 private:
     void combineNodes();
+    void print();
     std::vector<std::vector<int>> _graph = {};
+    std::map<int, std::vector<int>> _nodeids;
+
 };

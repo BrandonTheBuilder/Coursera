@@ -8,6 +8,7 @@
 #include <algorithm>
 #include <random>
 #include <map>
+#include <future>
 
 int getMinCut(const std::string& fileName);
 std::vector<std::vector<int>> getGraph(const std::string& fileName);

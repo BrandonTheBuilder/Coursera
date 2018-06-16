@@ -35,11 +35,15 @@ std::vector<std::vector<int>> getGraph(const std::string& fileName) {
 
 int getMinCut(const std::string& fileName) {
     const std::vector<std::vector<int>> graph = getGraph(fileName);
-    int trials = 10 * graph.size() * graph.size();
+    int trials = graph.size() * graph.size();
     std::vector<int> results = {};
+    std::vector<std::future<int>> futureResults;
     for(int i = 0; i < trials; i++){
         Graph graph_obj = Graph(graph);
-        results.push_back(graph_obj.getMinCut());
+        futureResults.push_back(std::async([](Graph g) {return g.getMinCut();}, graph_obj));
+    }
+    for(auto &res: futureResults) {
+        results.push_back(res.get());
     }
     int *cut = &*std::min_element(std::begin(results), std::end(results));
     return *cut;

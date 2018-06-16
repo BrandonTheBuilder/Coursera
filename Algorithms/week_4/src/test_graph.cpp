@@ -21,8 +21,8 @@ TEST(getMinCut, min_cut) {
 }
 
 TEST(getMinCut, largeInput) {
-    //int res = getMinCut(0, "kargerMinCut.txt");
-    //std::cout << "The answer is " << res << "!!\n";
+    int res = getMinCut("kargerMinCut.txt");
+    std::cout << "The answer is " << res << "!!\n";
 }
 
 TEST(minCut, one) {

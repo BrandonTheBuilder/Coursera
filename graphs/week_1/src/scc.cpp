@@ -5,9 +5,26 @@ Graph::Graph(int n) {
 }
 
 int Graph::operator () (int i, int j) {
-    return _graph[i][j]; 
+    return _graph[i-1][j-1]; 
 }
 
 void Graph::addEdge (int i, int j){
-    _graph[i][j] = 1;
+    _graph[i-1][j-1] = 1;
 }
+
+Graph loadFromFile(const std::string& fileName, int n) {
+    Graph graph(n);
+    std::fstream input(fileName);
+    std::string line;
+    while(!input.eof()) {
+        getline(input, line);
+        std::istringstream buffer(line);
+        int i;
+        buffer >> i;
+        int j;
+        buffer >> j;
+        graph.addEdge(i,j);
+    }
+    return graph;
+}
+

@@ -8,3 +8,7 @@ TEST(getFinishingTime, simpleInput) {
         {0,1,0},
     };
 }
+
+TEST(graph, createGraph) {
+    Graph graph(10);
+}

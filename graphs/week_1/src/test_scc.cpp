@@ -14,3 +14,9 @@ TEST(graph, createGraph) {
     ASSERT_EQ(graph(0,0), 0);
     ASSERT_EQ(graph(9,9), 0);
 }
+
+TEST(graph, addEdge) {
+    Graph graph(10);
+    graph.addEdge(0,0);
+    ASSERT_EQ(graph(0,0), 1);
+}

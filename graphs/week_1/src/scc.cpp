@@ -7,3 +7,7 @@ Graph::Graph(int n) {
 int Graph::operator () (int i, int j) {
     return _graph[i][j]; 
 }
+
+void Graph::addEdge (int i, int j){
+    _graph[i][j] = 1;
+}

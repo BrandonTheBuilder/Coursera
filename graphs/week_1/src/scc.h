@@ -6,6 +6,7 @@ class Graph{
 public:
     Graph(int n);
     void addEdge(int i, int j);
+    int operator () (int i, int j);
 private:
     std::vector<std::vector<int>> _graph;
 };

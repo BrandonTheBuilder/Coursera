@@ -11,4 +11,6 @@ TEST(getFinishingTime, simpleInput) {
 
 TEST(graph, createGraph) {
     Graph graph(10);
+    ASSERT_EQ(graph(0,0), 0);
+    ASSERT_EQ(graph(9,9), 0);
 }
